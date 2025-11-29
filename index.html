@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Мои разработки</title>
+  <style>
+    /* === ГОЛУБОЙ ФОН + ЧИТАЕМЫЙ ТЕКСТ === */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+      background-color: #e6f2ff; /* Светло-голубой фон */
+      color: #0d1b2a; /* Тёмно-синий текст для контраста */
+      padding: 16px;
+      line-height: 1.4;
+    }
+    header {
+      text-align: center;
+      margin: 24px 0 32px;
+    }
+    header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #0d3b66; /* Насыщенный синий для заголовка */
+    }
+    header p {
+      color: #4a6fa5;
+      font-size: 16px;
+    }
+
+    /* === СЕТКА ТОВАРОВ === */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* === КАРТОЧКА ТОВАРА === */
+    .product-card {
+      background: #ffffff;
+      border: 1px solid #bcd4ec;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    .product-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .product-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      padding: 16px;
+      background: #f0f8ff;
+    }
+    .card-content {
+      padding: 14px;
+    }
+    .card-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #0d1b2a;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-content p {
+      font-size: 14px;
+      color: #4a5568;
+      margin-bottom: 10px;
+    }
+    .price {
+      font-size: 20px;
+      font-weight: 700;
+      color: #000000;
+      margin: 8px 0 14px;
+    }
+    /* Кнопки в карточке */
+    .card-buttons {
+      display: flex;
+      gap: 8px;
+    }
+    .btn {
+      flex: 1;
+      padding: 8px 0;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+      border: none;
+      background: transparent;
+    }
+    .btn-buy {
+      background: #1e88e5; /* Ярко-голубая кнопка "Купить" */
+      color: white;
+    }
+    .btn-buy:hover {
+      background: #1976d2;
+    }
+    .btn-desc {
+      background: #e3f2fd;
+      color: #0d3b66;
+      border: 1px solid #90caf9;
+    }
+    .btn-desc:hover {
+      background: #bbdefb;
+      color: #0d47a1;
+    }
+
+    /* === МОДАЛЬНОЕ ОКНО === */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1001;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .modal-content {
+      background: #ffffff;
+      margin: 40px auto;
+      max-width: 900px;
+      border-radius: 8px;
+      padding: 24px;
+      position: relative;
+      color: #0d1b2a;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+    .close-modal {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #777;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .close-modal:hover {
+      color: #000;
+    }
+
+    /* === КАРУСЕЛЬ === */
+    .carousel {
+      position: relative;
+      height: 400px;
+      margin-bottom: 24px;
+      background: #f8fcff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #d0e3f1;
+    }
+    .carousel-inner {
+      display: flex;
+      height: 100%;
+      transition: transform 0.4s ease;
+    }
+    .carousel-item {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .carousel-item img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border: 1px solid #a0c4e0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .prev { left: 16px; }
+    .next { right: 16px; }
+
+    /* === ОПИСАНИЕ В МОДАЛКЕ === */
+    .modal-body h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #0d3b66;
+    }
+    .modal-body .price {
+      font-size: 28px;
+      margin: 12px 0 16px;
+      color: #000;
+    }
+    .modal-body p {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .modal-buy-btn {
+      padding: 12px 32px;
+      font-size: 16px;
+      font-weight: 600;
+      background: #1e88e5;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .modal-buy-btn:hover {
+      background: #1976d2;
+    }
+
+    /* === АДАПТИВНОСТЬ === */
+    @media (max-width: 768px) {
+      .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 14px;
+      }
+      .product-card img {
+        height: 160px;
+      }
+      .modal-content {
+        margin: 20px auto;
+        padding: 16px;
+      }
+      .carousel {
+        height: 280px;
+      }
+      .btn {
+        font-size: 12px;
+        padding: 6px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Мои образовательные игры</h1>
+    <p>Интерактивные HTML5-разработки для детей 6–8 лет</p>
+  </header>
+
+  <main class="products-grid">
+    <!-- Карточка 1 -->
+    <div class="product-card" data-product-id="product1">
+      <img src="images/bear.png" alt="Медвежонок решает примеры">
+      <div class="card-content">
+        <h3>Интерактивная викторина для 1 класса</h3>
+        <p>Математика и английский в игровой форме</p>
+        <div class="price">0 ₽</div>
+        <div class="card-buttons">
+          <button class="btn btn-desc" data-action="open-modal" data-id="product1">Описание</button>
+          <button class="btn btn-buy" data-action="open-modal" data-id="product1">Купить</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карточка 2 -->
+    <div class="product-card" data-product-id="product2">
+      <img src="images/bunny.png" alt="Зайчик ловит снежинки">
+      <div class="card-content">
+        <h3>Зимняя игра «Ловец снежинок»</h3>
+        <p>Анимированный тренажёр Present Continuous</p>
+        <div class="price">0 ₽</div>
+        <div class="card-buttons">
+          <button class="btn btn-desc" data-action="open-modal" data-id="product2">Описание</button>
+          <button class="btn btn-buy" data-action="open-modal" data-id="product2">Купить</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карточка 3 -->
+    <div class="product-card" data-product-id="product3">
+      <img src="images/foxes.png" alt="Лисички считают">
+      <div class="card-content">
+        <h3>Мини-игра «Счёт в пределах 20»</h3>
+        <p>Сложение и вычитание с анимированными персонажами</p>
+        <div class="price">0 ₽</div>
+        <div class="card-buttons">
+          <button class="btn btn-desc" data-action="open-modal" data-id="product3">Описание</button>
+          <button class="btn btn-buy" data-action="open-modal" data-id="product3">Купить</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карточка 4 -->
+    <div class="product-card" data-product-id="product4">
+      <img src="images/girl.png" alt="Девочка рассказывает о вчера">
+      <div class="card-content">
+        <h3>Английская грамматика: Past Simple</h3>
+        <p>Игра с неправильными глаголами и визуальными подсказками</p>
+        <div class="price">0 ₽</div>
+        <div class="card-buttons">
+          <button class="btn btn-desc" data-action="open-modal" data-id="product4">Описание</button>
+          <button class="btn btn-buy" data-action="open-modal" data-id="product4">Купить</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Модальное окно -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <button class="close-modal">&times;</button>
+      <div class="modal-body">
+        <div class="carousel">
+          <div class="carousel-inner" id="modal-carousel"></div>
+          <button class="carousel-btn prev">‹</button>
+          <button class="carousel-btn next">›</button>
+        </div>
+
+        <h2 id="modal-title">Название товара</h2>
+        <div class="price" id="modal-price">0 ₽</div>
+        <p id="modal-description">Полное описание...</p>
+        <button class="modal-buy-btn" id="modal-buy-btn">Купить сейчас</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // === ДАННЫЕ О ВАШИХ ИГРАХ ===
+    const products = {
+      product1: {
+        title: "Интерактивная викторина для 1 класса",
+        price: "0 ₽",
+        description: "Медвежонок в зимнем лесу решает математические примеры (счёт в пределах 10). Ребёнок помогает ему выбирать правильный ответ. Внизу отображаются числа словами на английском (one, two, three...). Яркий мультяшный стиль, зимняя тема, без озвучки, подходит для встраивания на сайт.",
+        images: ["images/bear.png"],
+        buyLink: "#"
+      },
+      product2: {
+        title: "Зимняя игра «Ловец снежинок»",
+        price: "0 ₽",
+        description: "Зайчик в пушистой шапке ловит падающие снежинки с английскими глаголами (play, jump, run). Игра тренирует Present Continuous. При правильном ответе — фейерверк! При ошибке — надписи «Ошибка!» и «Попробуй ещё раз!». Фон можно сменить на новогодний.",
+        images: ["images/bunny.png"],
+        buyLink: "#"
+      },
+      product3: {
+        title: "Мини-игра «Счёт в пределах 20»",
+        price: "0 ₽",
+        description: "Лисичка говорит число по-английски («five»), а лисёнок должен показать следующую цифру (6). Игра развивает навыки счёта и восприятия английской речи на слух. Зимний антураж, дружелюбные персонажи, интерактивная механика.",
+        images: ["images/foxes.png"],
+        buyLink: "#"
+      },
+      product4: {
+        title: "Английская грамматика: Past Simple",
+        price: "0 ₽",
+        description: "Девочка рассказывает, что она делала вчера («Yesterday I played», «Yesterday I drew»). Ребёнок выбирает картинку, соответствующую действию. Игра учит Past Simple через визуальные сценки. Тёплый интерьер с ёлкой, зимняя атмосфера.",
+        images: ["images/girl.png"],
+        buyLink: "#"
+      }
+    };
+
+    // === ОБРАБОТКА КЛИКОВ ПО КНОПКАМ ОТКРЫТИЯ МОДАЛКИ ===
+    document.querySelectorAll('[data-action="open-modal"]').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const id = this.dataset.id;
+        loadProductIntoModal(id);
+        document.getElementById('productModal').style.display = 'block';
+      });
+    });
+
+    // === ЗАКРЫТИЕ МОДАЛКИ ===
+    document.querySelector('.close-modal').addEventListener('click', () => {
+      document.getElementById('productModal').style.display = 'none';
+    });
+    window.addEventListener('click', (e) => {
+      if (e.target === document.getElementById('productModal')) {
+        document.getElementById('productModal').style.display = 'none';
+      }
+    });
+
+    // === КАРУСЕЛЬ: НАВЕШИВАНИЕ ОБРАБОТЧИКОВ ===
+    document.querySelector('.prev').addEventListener('click', () => changeSlide(-1));
+    document.querySelector('.next').addEventListener('click', () => changeSlide(1));
+
+    // === ГЛОБАЛЬНОЕ СОСТОЯНИЕ КАРУСЕЛИ ===
+    let currentSlide = 0;
+
+    // === ЗАГРУЗКА ТОВАРА В МОДАЛКУ ===
+    function loadProductIntoModal(productId) {
+      const p = products[productId];
+      if (!p) return;
+
+      document.getElementById('modal-title').textContent = p.title;
+      document.getElementById('modal-price').textContent = p.price;
+      document.getElementById('modal-description').textContent = p.description;
+      document.getElementById('modal-buy-btn').onclick = () => {
+        window.location.href = p.buyLink;
+      };
+
+      const carousel = document.getElementById('modal-carousel');
+      const prevBtn = document.querySelector('.carousel .prev');
+      const nextBtn = document.querySelector('.carousel .next');
+
+      carousel.innerHTML = '';
+
+      if (!p.images || p.images.length === 0) {
+        carousel.innerHTML = '<div class="carousel-item">Изображение отсутствует</div>';
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+        currentSlide = 0;
+        return;
+      }
+
+      p.images.forEach(src => {
+        const item = document.createElement('div');
+        item.className = 'carousel-item';
+        item.innerHTML = `<img src="${src}" alt="Изображение товара">`;
+        carousel.appendChild(item);
+      });
+
+      if (p.images.length <= 1) {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+      } else {
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+      }
+
+      currentSlide = 0;
+      updateCarousel();
+    }
+
+    // === КАРУСЕЛЬ: ЛОГИКА ПЕРЕКЛЮЧЕНИЯ ===
+    function changeSlide(direction) {
+      const items = document.querySelectorAll('.carousel-item');
+      const total = items.length;
+      if (total <= 1) return;
+      currentSlide = (currentSlide + direction + total) % total;
+      updateCarousel();
+    }
+
+    function updateCarousel() {
+      document.getElementById('modal-carousel').style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+  </script>
+</body>
+</html>

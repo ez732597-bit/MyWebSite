@@ -1,464 +1,935 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Мои разработки</title>
-  <style>
-    /* === ГОЛУБОЙ ФОН + ЧИТАЕМЫЙ ТЕКСТ === */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
-      background-color: #e6f2ff; /* Светло-голубой фон */
-      color: #0d1b2a; /* Тёмно-синий текст для контраста */
-      padding: 16px;
-      line-height: 1.4;
-    }
-    header {
-      text-align: center;
-      margin: 24px 0 32px;
-    }
-    header h1 {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #0d3b66; /* Насыщенный синий для заголовка */
-    }
-    header p {
-      color: #4a6fa5;
-      font-size: 16px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Английский с Еленой | Репетитор английского языка</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Базовые стили и сброс */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFD166;
+            --dark: #1A535C;
+            --light: #F7FFF7;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-light: linear-gradient(135deg, #ff8e8e, #6ce0da);
+        }
+        
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Шапка сайта */
+        header {
+            background: var(--gradient);
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 1rem 0;
+            background: rgba(255, 107, 107, 0.95);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Главный баннер */
+        .hero {
+            padding: 10rem 0 5rem;
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48L3JlY3Q+PHBhdGggZD0iTTAgMEwxMDAwIDEwMDBMMCAxMDAwWiIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjEiPjwvcGF0aD48L3N2Zz4=');
+            opacity: 0.1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease 0.6s both;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Секция "Обо мне" */
+        .about {
+            padding: 5rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-img {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .about-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-light);
+            opacity: 0.2;
+            z-index: 1;
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .certificates {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .certificate {
+            background: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: var(--dark);
+            border-left: 3px solid var(--secondary);
+        }
+        
+        /* Секция услуг */
+        .services {
+            padding: 5rem 0;
+            background-color: #f9f9f9;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        .service-card h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        /* Секция отзывов */
+        .testimonials {
+            padding: 5rem 0;
+            background-color: white;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--secondary);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-text {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient);
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .author-info h4 {
+            color: var(--dark);
+            margin-bottom: 0.2rem;
+        }
+        
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Секция контактов */
+        .contact {
+            padding: 5rem 0;
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .contact .section-title {
+            color: white;
+        }
+        
+        .contact .section-title::after {
+            background: white;
+        }
+        
+        .contact-content {
+            display: flex;
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-form {
+            flex: 1;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .contact .btn {
+            background: white;
+            color: var(--dark);
+        }
+        
+        /* Подвал */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 0.5rem;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content,
+            .contact-content {
+                flex-direction: column;
+            }
+            
+            .hero {
+                padding: 8rem 0 3rem;
+            }
+        }
+        
+        /* Анимации */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    /* === СЕТКА ТОВАРОВ === */
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 20px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+        /* Кнопка "Вернуться наверх" */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
 
-    /* === КАРТОЧКА ТОВАРА === */
-    .product-card {
-      background: #ffffff;
-      border: 1px solid #bcd4ec;
-      border-radius: 8px;
-      overflow: hidden;
-      transition: box-shadow 0.3s;
-    }
-    .product-card:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    .product-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: contain;
-      padding: 16px;
-      background: #f0f8ff;
-    }
-    .card-content {
-      padding: 14px;
-    }
-    .card-content h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #0d1b2a;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .card-content p {
-      font-size: 14px;
-      color: #4a5568;
-      margin-bottom: 10px;
-    }
-    .price {
-      font-size: 20px;
-      font-weight: 700;
-      color: #000000;
-      margin: 8px 0 14px;
-    }
-    /* Кнопки в карточке */
-    .card-buttons {
-      display: flex;
-      gap: 8px;
-    }
-    .btn {
-      flex: 1;
-      padding: 8px 0;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 4px;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      transition: all 0.2s;
-      border: none;
-      background: transparent;
-    }
-    .btn-buy {
-      background: #1e88e5; /* Ярко-голубая кнопка "Купить" */
-      color: white;
-    }
-    .btn-buy:hover {
-      background: #1976d2;
-    }
-    .btn-desc {
-      background: #e3f2fd;
-      color: #0d3b66;
-      border: 1px solid #90caf9;
-    }
-    .btn-desc:hover {
-      background: #bbdefb;
-      color: #0d47a1;
-    }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
 
-    /* === МОДАЛЬНОЕ ОКНО === */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1001;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-    }
-    .modal-content {
-      background: #ffffff;
-      margin: 40px auto;
-      max-width: 900px;
-      border-radius: 8px;
-      padding: 24px;
-      position: relative;
-      color: #0d1b2a;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    }
-    .close-modal {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #777;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-    .close-modal:hover {
-      color: #000;
-    }
-
-    /* === КАРУСЕЛЬ === */
-    .carousel {
-      position: relative;
-      height: 400px;
-      margin-bottom: 24px;
-      background: #f8fcff;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #d0e3f1;
-    }
-    .carousel-inner {
-      display: flex;
-      height: 100%;
-      transition: transform 0.4s ease;
-    }
-    .carousel-item {
-      min-width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .carousel-item img {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
-    }
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: white;
-      border: 1px solid #a0c4e0;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      font-size: 18px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .prev { left: 16px; }
-    .next { right: 16px; }
-
-    /* === ОПИСАНИЕ В МОДАЛКЕ === */
-    .modal-body h2 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: #0d3b66;
-    }
-    .modal-body .price {
-      font-size: 28px;
-      margin: 12px 0 16px;
-      color: #000;
-    }
-    .modal-body p {
-      font-size: 16px;
-      color: #333;
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
-    .modal-buy-btn {
-      padding: 12px 32px;
-      font-size: 16px;
-      font-weight: 600;
-      background: #1e88e5;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .modal-buy-btn:hover {
-      background: #1976d2;
-    }
-
-    /* === АДАПТИВНОСТЬ === */
-    @media (max-width: 768px) {
-      .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 14px;
-      }
-      .product-card img {
-        height: 160px;
-      }
-      .modal-content {
-        margin: 20px auto;
-        padding: 16px;
-      }
-      .carousel {
-        height: 280px;
-      }
-      .btn {
-        font-size: 12px;
-        padding: 6px 0;
-      }
-    }
-  </style>
+        .back-to-top:hover {
+            background: var(--dark);
+            transform: translateY(-3px);
+        }
+    </style>
 </head>
 <body>
-
-  <header>
-    <h1>Мои образовательные игры</h1>
-    <p>Интерактивные HTML5-разработки для детей 6–8 лет</p>
-  </header>
-
-  <main class="products-grid">
-    <!-- Карточка 1 -->
-    <div class="product-card" data-product-id="product1">
-      <img src="images/bear.png" alt="Медвежонок решает примеры">
-      <div class="card-content">
-        <h3>Интерактивная викторина для 1 класса</h3>
-        <p>Математика и английский в игровой форме</p>
-        <div class="price">0 ₽</div>
-        <div class="card-buttons">
-          <button class="btn btn-desc" data-action="open-modal" data-id="product1">Описание</button>
-          <button class="btn btn-buy" data-action="open-modal" data-id="product1">Купить</button>
+    <!-- Шапка сайта -->
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">English<span>Pro</span></a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav>
+                    <ul id="nav-menu">
+                        <li><a href="#about">Обо мне</a></li>
+                        <li><a href="#services">Услуги</a></li>
+                        <li><a href="#testimonials">Отзывы</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-      </div>
-    </div>
+    </header>
 
-    <!-- Карточка 2 -->
-    <div class="product-card" data-product-id="product2">
-      <img src="images/bunny.png" alt="Зайчик ловит снежинки">
-      <div class="card-content">
-        <h3>Зимняя игра «Ловец снежинок»</h3>
-        <p>Анимированный тренажёр Present Continuous</p>
-        <div class="price">0 ₽</div>
-        <div class="card-buttons">
-          <button class="btn btn-desc" data-action="open-modal" data-id="product2">Описание</button>
-          <button class="btn btn-buy" data-action="open-modal" data-id="product2">Купить</button>
+    <!-- Главный баннер -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Английский язык с удовольствием!</h1>
+                <p>Индивидуальные и групповые занятия для детей и взрослых. Повысьте уровень английского с опытным репетитором.</p>
+                <a href="#contact" class="btn floating">Записаться на урок</a>
+            </div>
         </div>
-      </div>
-    </div>
+    </section>
 
-    <!-- Карточка 3 -->
-    <div class="product-card" data-product-id="product3">
-      <img src="images/foxes.png" alt="Лисички считают">
-      <div class="card-content">
-        <h3>Мини-игра «Счёт в пределах 20»</h3>
-        <p>Сложение и вычитание с анимированными персонажами</p>
-        <div class="price">0 ₽</div>
-        <div class="card-buttons">
-          <button class="btn btn-desc" data-action="open-modal" data-id="product3">Описание</button>
-          <button class="btn btn-buy" data-action="open-modal" data-id="product3">Купить</button>
+    <!-- Секция "Обо мне" -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">Обо мне</h2>
+            <div class="about-content">
+                <div class="about-img">
+                    <!-- Замените на реальное изображение -->
+                    <div style="width:100%; height:400px; background:var(--gradient); display:flex; align-items:center; justify-content:center; color:white; font-size:1.5rem;">
+                        <i class="fas fa-user-tie" style="font-size: 4rem;"></i>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h3>Привет, я Елена - репетитор английского языка</h3>
+                    <p>Сертифицированный преподаватель с 30-летним опытом работы. Помогаю ученикам всех возрастов достигать своих целей в изучении английского языка.</p>
+                    <p>Выпускница Американской программы "Excellence in Teaching", сертификат Университета Колумбии Южной Каролины, США. Проходила стажировку в Великобритании и США. Специализируюсь на подготовке к ЕГЭ, ОГЭ, к международным экзаменам по АЯ. Имею многолетний опыт экспертной и общепедагогической деятельности.</p>
+                    <p>В своей работе использую индивидуальный подход, что позволяет студентам достигать поставленной задачи на высоком уровне.</p>
+                    
+                    <div class="certificates">
+                        <div class="certificate">Сертификат TEFL</div>
+                        <div class="certificate">Сертификат CELTA</div>
+                        <div class="certificate">Excellence in Teaching</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
+    </section>
 
-    <!-- Карточка 4 -->
-    <div class="product-card" data-product-id="product4">
-      <img src="images/girl.png" alt="Девочка рассказывает о вчера">
-      <div class="card-content">
-        <h3>Английская грамматика: Past Simple</h3>
-        <p>Игра с неправильными глаголами и визуальными подсказками</p>
-        <div class="price">0 ₽</div>
-        <div class="card-buttons">
-          <button class="btn btn-desc" data-action="open-modal" data-id="product4">Описание</button>
-          <button class="btn btn-buy" data-action="open-modal" data-id="product4">Купить</button>
+    <!-- Секция услуг -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Мои услуги</h2>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fas fa-user-graduate"></i></div>
+                    <h3>Индивидуальные занятия</h3>
+                    <p>Персональный подход к каждому ученику с учетом целей, уровня и темпа обучения.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fas fa-users"></i></div>
+                    <h3>Групповые занятия</h3>
+                    <p>Эффективное обучение в мини-группах до 4 человек с акцентом на разговорную практику.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>Подготовка к экзаменам</h3>
+                    <p>Специализированная подготовка к IELTS, TOEFL, ЕГЭ, ОГЭ и другим международным экзаменам.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fas fa-briefcase"></i></div>
+                    <h3>Бизнес-английский</h3>
+                    <p>Английский для работы, переговоров, презентаций и деловой переписки.</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </main>
+    </section>
 
-  <!-- Модальное окно -->
-  <div id="productModal" class="modal">
-    <div class="modal-content">
-      <button class="close-modal">&times;</button>
-      <div class="modal-body">
-        <div class="carousel">
-          <div class="carousel-inner" id="modal-carousel"></div>
-          <button class="carousel-btn prev">‹</button>
-          <button class="carousel-btn next">›</button>
+    <!-- Секция отзывов -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Отзывы учеников</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-text">
+                        Занимаюсь с Еленой уже полгода. За это время мой уровень английского значительно вырос. Уроки всегда интересные и продуктивные. Особенно нравится индивидуальный подход и гибкий график занятий.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">А</div>
+                        <div class="author-info">
+                            <h4>Анна</h4>
+                            <p>Студентка, 24 года</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-text">
+                        Благодаря занятиям с Еленой я смог успешно сдать IELTS и поступить в университет за границей. Очень благодарен за профессиональный подход и терпение! Материал объясняется доступно и понятно.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">М</div>
+                        <div class="author-info">
+                            <h4>Максим</h4>
+                            <p>Студент, 19 лет</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-text">
+                        Как бизнесмену, мне часто приходится общаться с иностранными партнерами. Занятия с Еленой помогли мне уверенно вести переговоры на английском. Отдельно хочу отметить акцент на бизнес-лексику и практические ситуации.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">Д</div>
+                        <div class="author-info">
+                            <h4>Дмитрий</h4>
+                            <p>Предприниматель, 42 года</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <h2 id="modal-title">Название товара</h2>
-        <div class="price" id="modal-price">0 ₽</div>
-        <p id="modal-description">Полное описание...</p>
-        <button class="modal-buy-btn" id="modal-buy-btn">Купить сейчас</button>
-      </div>
-    </div>
-  </div>
+    <!-- Секция контактов -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Свяжитесь со мной</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <h3>Телефон</h3>
+                            <p>+7 (999) 999-99-99</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>ez732597@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h3>Адрес</h3>
+                            <p>г. Москва</p>
+                            <p>(онлайн занятия доступны по всему миру)</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                        <div>
+                            <h3>Время работы</h3>
+                            <p>Пн-Пт: 9:00 - 20:00</p>
+                            <p>Сб-Вс: 10:00 - 16:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Ваш email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="Ваш телефон">
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Ваше сообщение" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Отправить сообщение</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    // === ДАННЫЕ О ВАШИХ ИГРАХ ===
-    const products = {
-      product1: {
-        title: "Интерактивная викторина для 1 класса",
-        price: "0 ₽",
-        description: "Медвежонок в зимнем лесу решает математические примеры (счёт в пределах 10). Ребёнок помогает ему выбирать правильный ответ. Внизу отображаются числа словами на английском (one, two, three...). Яркий мультяшный стиль, зимняя тема, без озвучки, подходит для встраивания на сайт.",
-        images: ["images/bear.png"],
-        buyLink: "#"
-      },
-      product2: {
-        title: "Зимняя игра «Ловец снежинок»",
-        price: "0 ₽",
-        description: "Зайчик в пушистой шапке ловит падающие снежинки с английскими глаголами (play, jump, run). Игра тренирует Present Continuous. При правильном ответе — фейерверк! При ошибке — надписи «Ошибка!» и «Попробуй ещё раз!». Фон можно сменить на новогодний.",
-        images: ["images/bunny.png"],
-        buyLink: "#"
-      },
-      product3: {
-        title: "Мини-игра «Счёт в пределах 20»",
-        price: "0 ₽",
-        description: "Лисичка говорит число по-английски («five»), а лисёнок должен показать следующую цифру (6). Игра развивает навыки счёта и восприятия английской речи на слух. Зимний антураж, дружелюбные персонажи, интерактивная механика.",
-        images: ["images/foxes.png"],
-        buyLink: "#"
-      },
-      product4: {
-        title: "Английская грамматика: Past Simple",
-        price: "0 ₽",
-        description: "Девочка рассказывает, что она делала вчера («Yesterday I played», «Yesterday I drew»). Ребёнок выбирает картинку, соответствующую действию. Игра учит Past Simple через визуальные сценки. Тёплый интерьер с ёлкой, зимняя атмосфера.",
-        images: ["images/girl.png"],
-        buyLink: "#"
-      }
-    };
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>&copy; 2023 EnglishPro. Все права защищены.</p>
+        </div>
+    </footer>
 
-    // === ОБРАБОТКА КЛИКОВ ПО КНОПКАМ ОТКРЫТИЯ МОДАЛКИ ===
-    document.querySelectorAll('[data-action="open-modal"]').forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.preventDefault();
-        const id = this.dataset.id;
-        loadProductIntoModal(id);
-        document.getElementById('productModal').style.display = 'block';
-      });
-    });
+    <!-- Кнопка "Вернуться наверх" -->
+    <a href="#" id="back-to-top" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
-    // === ЗАКРЫТИЕ МОДАЛКИ ===
-    document.querySelector('.close-modal').addEventListener('click', () => {
-      document.getElementById('productModal').style.display = 'none';
-    });
-    window.addEventListener('click', (e) => {
-      if (e.target === document.getElementById('productModal')) {
-        document.getElementById('productModal').style.display = 'none';
-      }
-    });
+    <script>
+        // Плавная прокрутка к якорям
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Закрытие мобильного меню после клика
+                    if (window.innerWidth <= 768) {
+                        document.getElementById('nav-menu').classList.remove('show');
+                    }
+                }
+            });
+        });
+        
+        // Мобильное меню
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('nav-menu').classList.toggle('show');
+        });
+        
+        // Изменение шапки при прокрутке
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            // Анимация появления элементов при прокрутке
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            fadeElements.forEach(element => {
+                const position = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (position < screenPosition) {
+                    element.classList.add('visible');
+                }
+            });
+        });
+        
+        // Инициализация анимации при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            // Запуск анимации после загрузки
+            setTimeout(() => {
+                window.dispatchEvent(new Event('scroll'));
+            }, 100);
+            
+            // Обработка формы
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Спасибо за ваше сообщение! Я свяжусь с вами в ближайшее время.');
+                this.reset();
+            });
+        });
 
-    // === КАРУСЕЛЬ: НАВЕШИВАНИЕ ОБРАБОТЧИКОВ ===
-    document.querySelector('.prev').addEventListener('click', () => changeSlide(-1));
-    document.querySelector('.next').addEventListener('click', () => changeSlide(1));
+        // Кнопка "Вернуться наверх"
+        const backToTopButton = document.getElementById('back-to-top');
 
-    // === ГЛОБАЛЬНОЕ СОСТОЯНИЕ КАРУСЕЛИ ===
-    let currentSlide = 0;
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
 
-    // === ЗАГРУЗКА ТОВАРА В МОДАЛКУ ===
-    function loadProductIntoModal(productId) {
-      const p = products[productId];
-      if (!p) return;
-
-      document.getElementById('modal-title').textContent = p.title;
-      document.getElementById('modal-price').textContent = p.price;
-      document.getElementById('modal-description').textContent = p.description;
-      document.getElementById('modal-buy-btn').onclick = () => {
-        window.location.href = p.buyLink;
-      };
-
-      const carousel = document.getElementById('modal-carousel');
-      const prevBtn = document.querySelector('.carousel .prev');
-      const nextBtn = document.querySelector('.carousel .next');
-
-      carousel.innerHTML = '';
-
-      if (!p.images || p.images.length === 0) {
-        carousel.innerHTML = '<div class="carousel-item">Изображение отсутствует</div>';
-        prevBtn.style.display = 'none';
-        nextBtn.style.display = 'none';
-        currentSlide = 0;
-        return;
-      }
-
-      p.images.forEach(src => {
-        const item = document.createElement('div');
-        item.className = 'carousel-item';
-        item.innerHTML = `<img src="${src}" alt="Изображение товара">`;
-        carousel.appendChild(item);
-      });
-
-      if (p.images.length <= 1) {
-        prevBtn.style.display = 'none';
-        nextBtn.style.display = 'none';
-      } else {
-        prevBtn.style.display = 'flex';
-        nextBtn.style.display = 'flex';
-      }
-
-      currentSlide = 0;
-      updateCarousel();
-    }
-
-    // === КАРУСЕЛЬ: ЛОГИКА ПЕРЕКЛЮЧЕНИЯ ===
-    function changeSlide(direction) {
-      const items = document.querySelectorAll('.carousel-item');
-      const total = items.length;
-      if (total <= 1) return;
-      currentSlide = (currentSlide + direction + total) % total;
-      updateCarousel();
-    }
-
-    function updateCarousel() {
-      document.getElementById('modal-carousel').style.transform = `translateX(-${currentSlide * 100}%)`;
-    }
-  </script>
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 </body>
 </html>
+```
+
+
